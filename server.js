@@ -8,7 +8,7 @@ app.use(express.json());
 const FILE_PATH = path.join(__dirname, 'books.json');
 
 app.get('/', (req, res) => {
-    res.send('📚 Welcome to the Books API! Use /books to get started.');
+    res.send(' Welcome to the Books API! Use /books to get started.');
 });
 
 function readBooks() {
@@ -94,4 +94,5 @@ const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
 
