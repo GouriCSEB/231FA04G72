@@ -7,12 +7,10 @@ app.use(express.json());
 
 const FILE_PATH = path.join(__dirname, 'books.json');
 
-// Root route
 app.get('/', (req, res) => {
     res.send('📚 Welcome to the Books API! Use /books to get started.');
 });
 
-// Helper function to read books.json
 function readBooks() {
     try {
         const data = fs.readFileSync(FILE_PATH, 'utf8');
@@ -23,7 +21,6 @@ function readBooks() {
     }
 }
 
-// Helper function to write books.json
 function writeBooks(books) {
     try {
         fs.writeFileSync(FILE_PATH, JSON.stringify(books, null, 2), 'utf8');
@@ -32,13 +29,11 @@ function writeBooks(books) {
     }
 }
 
-// GET /books → return all books
 app.get('/books', (req, res) => {
     const books = readBooks();
     res.json(books);
 });
 
-// GET /books/available → return only available books
 app.get('/books/available', (req, res) => {
     const books = readBooks();
     const availableBooks = books.filter(b => b.available === true);
@@ -65,7 +60,6 @@ app.post('/books', (req, res) => {
     res.status(201).json(newBook);
 });
 
-// PUT /books/:id → update a book
 app.put('/books/:id', (req, res) => {
     const bookId = parseInt(req.params.id);
     if (isNaN(bookId)) return res.status(400).json({ error: 'Invalid book ID' });
@@ -83,7 +77,6 @@ app.put('/books/:id', (req, res) => {
     res.json(books[bookIndex]);
 });
 
-// DELETE /books/:id → delete a book
 app.delete('/books/:id', (req, res) => {
     const bookId = parseInt(req.params.id);
     if (isNaN(bookId)) return res.status(400).json({ error: 'Invalid book ID' });
@@ -97,8 +90,8 @@ app.delete('/books/:id', (req, res) => {
     res.json(deletedBook);
 });
 
-// Start server
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
